@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CreateAndJoinRooms : MonoBehaviour
+using UnityEngine.UI;
+using Photon.Pun;
+public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public InputField CreateRoom;
+    public InputField JoinRoom;
 
-    // Update is called once per frame
-    void Update()
+    public void CreateRooms()
     {
-        
+        PhotonNetwork.CreateRoom(CreateRoom.text);
+    }
+    public void JoinRooms()
+    {
+        PhotonNetwork.JoinRoom(JoinRoom.text);
+    }
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("Game");
     }
 }
