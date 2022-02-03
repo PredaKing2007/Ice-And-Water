@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using Photon.Pun;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -88,7 +89,7 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
-
+		private PhotonView photonView;
 		private bool _hasAnimator;
 		private PlayerData playerData;
 		private void Awake()
@@ -105,6 +106,7 @@ namespace StarterAssets
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			playerData = GetComponent<PlayerData>();
+			photonView = GetComponent<PhotonView>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			AssignAnimationIDs();
@@ -118,7 +120,7 @@ namespace StarterAssets
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 
-			if (!playerData.isIce)
+			if (!playerData.isIce&&photonView.IsMine)
 			{
 				JumpAndGravity();
 				GroundedCheck();
