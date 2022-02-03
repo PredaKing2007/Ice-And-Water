@@ -90,7 +90,7 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
-
+		private PlayerData playerData;
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -104,6 +104,7 @@ namespace StarterAssets
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
+			playerData = GetComponent<PlayerData>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			AssignAnimationIDs();
@@ -116,10 +117,13 @@ namespace StarterAssets
 		private void Update()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
-			
-			JumpAndGravity();
-			GroundedCheck();
-			Move();
+
+			if (!playerData.isIce)
+			{
+				JumpAndGravity();
+				GroundedCheck();
+				Move();
+			}
 		}
 
 		private void LateUpdate()
