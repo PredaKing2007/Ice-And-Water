@@ -89,9 +89,10 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
-		private PhotonView photonView;
+
 		private bool _hasAnimator;
 		private PlayerData playerData;
+		private PhotonView view;
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -105,10 +106,9 @@ namespace StarterAssets
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
-			playerData = GetComponent<PlayerData>();
-			photonView = GetComponent<PhotonView>();
 			_input = GetComponent<StarterAssetsInputs>();
-
+			playerData = GetComponent<PlayerData>();
+			view = GetComponent<PhotonView>();
 			AssignAnimationIDs();
 
 			// reset our timeouts on start
@@ -119,13 +119,12 @@ namespace StarterAssets
 		private void Update()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
-
-			if (!playerData.isIce&&photonView.IsMine)
-			{
+            if (view.IsMine)
+            {
 				JumpAndGravity();
 				GroundedCheck();
 				Move();
-			}
+            }
 		}
 
 		private void LateUpdate()
