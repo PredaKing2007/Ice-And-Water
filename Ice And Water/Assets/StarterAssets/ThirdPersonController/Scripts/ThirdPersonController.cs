@@ -2,6 +2,7 @@
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using Cinemachine;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -89,10 +90,9 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
-
-		private bool _hasAnimator;
-		private PlayerData playerData;
 		private PhotonView view;
+		private bool _hasAnimator;
+
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -107,24 +107,28 @@ namespace StarterAssets
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
-			playerData = GetComponent<PlayerData>();
 			view = GetComponent<PhotonView>();
 			AssignAnimationIDs();
 
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+
+            if (view.IsMine)
+            {
+				GameObject.FindGameObjectWithTag("FollowPlayerCam").GetComponent<CinemachineVirtualCamera>().Follow = transform.GetChild(0).transform;
+            }
 		}
 
 		private void Update()
 		{
-			_hasAnimator = TryGetComponent(out _animator);
-            if (view.IsMine)
-            {
+			if (view.IsMine)
+			{
+				_hasAnimator = TryGetComponent(out _animator);
 				JumpAndGravity();
 				GroundedCheck();
 				Move();
-            }
+			}
 		}
 
 		private void LateUpdate()
