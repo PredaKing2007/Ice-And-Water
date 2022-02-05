@@ -5,19 +5,18 @@ using StarterAssets;
 public class PlayerData : MonoBehaviour
 {
     public bool isIce;
-    private ThirdPersonController controller;
-    // Start is called before the first frame update
-    void Start()
-    {
-        controller = GetComponent<ThirdPersonController>();
-    }
+    public bool isFreeze;
 
     // Update is called once per frame
     void Update()
     {
-        if (isIce)
-        {
 
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other != null)
+        {
+            Debug.Log("ice");
         }
     }
 }

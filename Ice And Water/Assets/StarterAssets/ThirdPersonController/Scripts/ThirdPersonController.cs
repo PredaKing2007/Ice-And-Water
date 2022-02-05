@@ -92,7 +92,7 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
 		private PhotonView view;
 		private bool _hasAnimator;
-
+		private PlayerData playerData;
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -108,6 +108,7 @@ namespace StarterAssets
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 			view = GetComponent<PhotonView>();
+			playerData = GetComponent<PlayerData>();
 			AssignAnimationIDs();
 
 			// reset our timeouts on start
@@ -122,7 +123,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			if (view.IsMine)
+			if (view.IsMine&&!playerData.isFreeze)
 			{
 				_hasAnimator = TryGetComponent(out _animator);
 				JumpAndGravity();
