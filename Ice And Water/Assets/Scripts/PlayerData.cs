@@ -6,17 +6,17 @@ public class PlayerData : MonoBehaviour
 {
     public bool isIce;
     public bool isFreeze;
-
     // Update is called once per frame
     void Update()
     {
-
+        
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other != null)
+        if (hit.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ice");
+            Debug.Log("Ice");
         }
     }
 }
