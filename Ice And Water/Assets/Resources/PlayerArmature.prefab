@@ -1340,7 +1340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isIce: 0
   isFreeze: 0
-  Range: 0.88
+  Range: 0.9
   playerTag: Player
 --- !u!1 &4523139366846529165
 GameObject:

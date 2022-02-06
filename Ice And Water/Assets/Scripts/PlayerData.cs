@@ -24,16 +24,18 @@ public class PlayerData : MonoBehaviour
             foreach (GameObject enemy in players)
             {
                 float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                Debug.Log(distance);
                 if (distance < shortestDis)
                 {
-                    shortestDis = distance;
-                    nearestPlayer.Add(enemy);
+                    Debug.Log("Found");
+                    //shortestDis = distance;
+                    //nearestPlayer.Add(enemy);
                 }
             }
             if (nearestPlayer.Count > 1 && shortestDis <= Range)
             {
                 target = nearestPlayer;
-                Debug.Log(target.Count);
+                //Debug.Log(target.Count);
             }
             else
                 target = null;
