@@ -5,45 +5,23 @@ using StarterAssets;
 public class PlayerData : MonoBehaviour
 {
     public bool isIce;
-    public bool isFreeze;
-    public float Range;
-    public string playerTag = "Player";
-    List<GameObject> target = new List<GameObject>();
-    void Awake()
+    private CharacterController controller;
+    private ThirdPersonController personController;
+    void Start()
     {
-        target.Clear();
-        InvokeRepeating("CheckForPlayers", 0f, 1f);
+        controller = GetComponent<CharacterController>();
+        personController = GetComponent<ThirdPersonController>();
+        controller.detectCollisions = true;
     }
-    void CheckForPlayers()
+    private void OnControllerColliderHit(ControllerColliderHit hit)    
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag(playerTag);
-        if (players.Length > 1)
+        if (isIce)
         {
-            float shortestDis = Mathf.Infinity;
-            List<GameObject> nearestPlayer = new List<GameObject>();
-            foreach (GameObject enemy in players)
+            ThirdPersonController personController = hit.gameObject.GetComponent<ThirdPersonController>();
+            if (personController != null)
             {
-                float distance = Vector3.Distance(transform.position, enemy.transform.position);
-                Debug.Log(distance);
-                if (distance < shortestDis)
-                {
-                    Debug.Log("Found");
-                    //shortestDis = distance;
-                    //nearestPlayer.Add(enemy);
-                }
+                personController.isFreeze = true;
             }
-            if (nearestPlayer.Count > 1 && shortestDis <= Range)
-            {
-                target = nearestPlayer;
-                //Debug.Log(target.Count);
-            }
-            else
-                target = null;
         }
-    }
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Range);
     }
 }
