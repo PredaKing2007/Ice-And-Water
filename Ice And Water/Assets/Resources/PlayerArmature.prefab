@@ -1102,7 +1102,6 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  isFreeze: 0
 --- !u!114 &5885216827943657505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1340,6 +1339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isIce: 0
+  isFreeze: 0
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0

@@ -93,7 +93,6 @@ namespace StarterAssets
 		private PhotonView view;
 		private bool _hasAnimator;
 		private PlayerData playerData;
-		public bool isFreeze = false;
 		private void Awake()
 		{
 			// get a reference to our main camera
@@ -124,7 +123,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			if (view.IsMine && !isFreeze)
+			if (view.IsMine && playerData.isFreeze==false)
 			{
 				_hasAnimator = TryGetComponent(out _animator);
 				JumpAndGravity();
